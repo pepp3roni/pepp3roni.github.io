@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>pepp3roni</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        :root { --main-transition: 0.8s cubic-bezier(0.2, 1, 0.3, 1); }
+        body {
+            background-color: #111; color: #eee; min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px; position: relative; overflow: hidden;
+        }
+        .container { text-align: center; max-width: 600px; width: 100%; transition: transform var(--main-transition); }
+        .profile { margin-bottom: 40px; }
+        .name {
+            font-size: 3.5rem; font-weight: 700; padding: 10px 20px;
+            position: relative; display: inline-block;
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff00ff);
+            background-size: 400% 400%; color: transparent;
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.7));
+            animation: gradientBtn 8s linear infinite;
+            transition: all var(--main-transition);
+        }
+        .bio-text { font-size: 1.1rem; opacity: 0.7; color: #ccc; max-width: 450px; margin: 20px auto 0; line-height: 1.6; }
+        .buttons-container { margin: 40px auto 0; display: flex; justify-content: center; align-items: center; gap: 15px; }
+        .btn {
+            background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1); color: #eee;
+            border-radius: 15px; cursor: pointer;
+            font-weight: 500; transition: all 0.3s ease;
+            text-decoration: none; display: flex; justify-content: center; align-items: center;
+            position: relative; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .contact-btn { flex-grow: 1; height: 56px; padding: 0 30px; font-size: 1.1rem; }
+        .discord-btn { flex-shrink: 0; width: 56px; height: 56px; padding: 0; border-radius: 50%; }
+        .btn:hover { transform: translateY(-3px); box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3); border-color: rgba(255, 255, 255, 0.3); }
+        .btn::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, #ff0000, #ff7f00, #ffff00, #00ff00, #0000ff, #8b00ff, #ff00ff);
+            background-size: 600% 600%; opacity: 0;
+            transition: opacity 0.5s ease, background var(--main-transition);
+            z-index: -1; filter: blur(20px); animation: gradientName 18s ease-in-out infinite;
+        }
+        .btn:hover::before, .btn.mobile-active::before { opacity: 0.4; }
+
+        @keyframes gradientName {0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        @keyframes gradientBtn {0%{background-position:0% 50%}100%{background-position:400% 50%}}
+        
+        .prompt-text { position: absolute; font-size: 2.2rem; font-weight: bold; pointer-events: none; z-index: 10; color: white; text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); animation-fill-mode: forwards; }
+        @keyframes gentle-burst {0%{transform:translateY(20px) scale(.8);opacity:0}20%{transform:translateY(0) scale(1);opacity:1}80%{transform:translateY(-15px) scale(1.1);opacity:1}100%{transform:translateY(-25px) scale(1);opacity:0}}
+        @keyframes frenzy-1 {0%{transform:scale(.5) rotate(-35deg);opacity:0}60%{transform:scale(1.2) rotate(5deg);opacity:1}100%{transform:scale(1.1) rotate(0deg);opacity:0}}
+        @keyframes frenzy-2 {0%{transform:translateX(-100px) scale(.7) skew(20deg);opacity:0}50%{transform:translateX(0) scale(1) skew(0);opacity:1}100%{transform:translateX(100px) scale(.7) skew(-20deg);opacity:0}}
+        @keyframes frenzy-3 {0%{transform:scale(2);opacity:0}70%{transform:scale(.9);opacity:1}100%{transform:scale(1);opacity:0}}
+        @keyframes frenzy-4 {0%{transform:translateY(100px) rotate(30deg);opacity:0}60%{transform:translateY(-10px) rotate(-5deg);opacity:1}100%{transform:translateY(-20px) rotate(0);opacity:0}}
+        
+        .blood-flash { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: #ff0000; z-index: 9999; pointer-events: none; opacity: 0; animation: bloodFlashAnimation 0.8s ease-out forwards; }
+        @keyframes bloodFlashAnimation {0%{opacity:0}15%{opacity:0.8}100%{opacity:0}}
+        
+        .lang-wipe { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #333; z-index: 9998; pointer-events: none; animation: langWipeAnimation 0.8s ease-in-out forwards; }
+        @keyframes langWipeAnimation {0%{transform:translateX(100%)}50%{transform:translateX(0)}100%{transform:translateX(-100%)}}
+
+        body.frenzy-mode .name { background-image: none; -webkit-text-fill-color: white; color: white; filter: drop-shadow(0 0 15px white); animation: none; }
+        body.frenzy-mode .btn:hover::before, body.frenzy-mode .btn.mobile-active::before { background: linear-gradient(45deg, #ffffff, #e0e0e0); animation: none; }
+        body.frenzy-mode .prompt-text { background: linear-gradient(45deg, #ff0000, #b30000, #ff4d4d, #800000); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-shadow: 0 0 10px rgba(255, 0, 0, 0.7); }
+        .memorial-text { transition: color 0.8s ease, text-shadow 0.8s ease; }
+        body.frenzy-mode .memorial-text { color: #ff1b1b; text-shadow: 0 0 8px #ff1b1b, 0 0 12px #ff0000; }
+
+        @keyframes screen-shake {0%,100%{transform:translate(0,0)}10%{transform:translate(-2px,-3px)}20%{transform:translate(2px,0)}30%{transform:translate(4px,3px)}40%{transform:translate(2px,-2px)}50%{transform:translate(-2px,3px)}60%{transform:translate(-4px,2px)}70%{transform:translate(4px,2px)}80%{transform:translate(-2px,-2px)}90%{transform:translate(2px,3px)}}
+        .screen-shake .container { animation: screen-shake 0.35s infinite; }
+
+        .lang-switcher { position: fixed; bottom: 20px; right: 20px; display: flex; gap: 10px; z-index: 100; }
+        .lang-btn { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); color: #eee; padding: 8px 12px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
+        .lang-btn:hover, .lang-btn.active { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.3); }
+        
+        .music-player {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px);
+            padding: 10px 15px; border-radius: 12px; display: flex; align-items: center; gap: 15px; z-index: 99;
+        }
+        .music-player button { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; width: 30px; text-align: center; }
+        #play-pause-btn svg { transition: transform 0.2s ease; }
+        #track-title-container { max-width: 150px; overflow: hidden; white-space: nowrap; }
+        #track-title { display: inline-block; }
+        #track-title.scrolling { padding-left: 100%; animation: scroll-text 10s linear infinite; }
+        @keyframes scroll-text { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+        @media (max-width: 768px) {
+            .name { font-size: 2.5rem; }
+            .contact-btn { padding: 0 20px; font-size: 1rem; height: 48px;}
+            .discord-btn { width: 48px; height: 48px; }
+            .bio-text { font-size: 1rem; }
+            .music-player { width: 90%; }
+            .lang-switcher { bottom: 80px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile">
+             <h1 class="name">pepp3roni</h1>
+            <p class="bio-text" id="bio-text"></p>
+        </div>
+        <div class="buttons-container">
+            <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.36981C18.7993 3.50425 17.1821 2.81336 15.4796 2.32924C15.3129 2.49591 15.1523 2.67442 14.9977 2.86477C13.5615 2.49591 12.0439 2.49591 10.6077 2.86477C10.4531 2.67442 10.2925 2.49591 10.1258 2.32924C8.42332 2.81336 6.8061 3.50425 5.28841 4.36981C1.57199 8.52832 0.716431 12.5694 1.08529 16.5201C2.88958 18.0378 4.90967 19.1834 7.04948 19.9841C7.45304 19.5152 7.8219 19.0159 8.14022 18.4984C7.61805 18.2263 7.12019 17.9238 6.64664 17.5849C6.76451 17.5344 6.88238 17.478 7.00025 17.4155C10.4439 19.2334 14.1541 19.2334 17.5978 17.4155C17.7156 17.478 17.8335 17.5344 17.9514 17.5849C17.4778 17.9238 16.9799 18.2263 16.4578 18.4984C16.7761 19.0159 17.145 19.5152 17.5485 19.9841C19.6883 19.1834 21.7084 18.0378 23.5127 16.5201C24.0348 11.9333 22.9753 7.9171 20.317 4.36981ZM8.67756 14.4839C7.81199 14.4839 7.09849 13.6891 7.09849 12.728C7.09849 11.7668 7.80016 10.972 8.67756 10.972C9.55495 10.972 10.2685 11.7668 10.2566 12.728C10.2566 13.6891 9.55495 14.4839 8.67756 14.4839ZM15.9224 14.4839C15.0569 14.4839 14.3434 13.6891 14.3434 12.728C14.3434 11.7668 15.045 10.972 15.9224 10.972C16.7998 10.972 17.5133 11.7668 17.5015 12.728C17.5015 13.6891 16.7998 14.4839 15.9224 14.4839Z"></path></svg>
+            </a>
+            <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
+                <span id="contact-btn-text"></span>
+            </a>
+        </div>
+    </div>
+    
+    <div class="lang-switcher">
+        <button class="lang-btn" id="lang-ru">RU</button>
+        <button class="lang-btn" id="lang-en">EN</button>
+    </div>
+
+    <div class="music-player">
+        <audio id="audio-player"></audio>
+        <button id="prev-btn">⏮</button>
+        <button id="play-pause-btn"></button>
+        <button id="next-btn">⏭</button>
+        <div id="track-title-container">
+            <span id="track-title"></span>
+        </div>
+    </div>
+
+    <script>
+        const info = {
+            ru: { 
+                bio: "Привет! Я - pepp3roni. Обычная шкила. Изучаю python. Живу в РФ, нравится Lil Peep, Серега Пират (-уши), Tame Impala, СТИНТ, MellSher. Смотрю твич - кишки forever. <span class='memorial-text'>Максим Spokoynich вечная память.</span>", 
+                contact: "Связаться со мной",
+                prompt: "Жми-Жми"
+            },
+            en: { 
+                bio: "Hey! I'm pepp3roni. Just a regular school kid learning Python. I'm from Russia and like Lil Peep, Serega Pirat (-ears), Tame Impala, STINT, and MellSher. I watch Twitch - kishki forever. <span class='memorial-text'>Maxim Spokoynich, Rest in Peace.</span>", 
+                contact: "Contact me",
+                prompt: "Tap-Tap"
+            },
+            discord_link: "https://discord.com/users/1099243706499997768",
+            playlist: [
+                { title: "LiL PEEP x PIXIES x BONES...", src: "music/wmmlilpeep.mp3" },
+                { title: "Серега Пират - КАРТИНЫ", src: "music/kartini.mp3" },
+            ]
+        };
+
+        const body = document.body;
+        const all_btns = [document.getElementById('contact-btn'), document.getElementById('discord-btn')];
+        const bio_text = document.getElementById('bio-text');
+        const tg_btn_text = document.getElementById('contact-btn-text');
+        const ds_btn = document.getElementById('discord-btn');
+        const ru_btn = document.getElementById('lang-ru');
+        const en_btn = document.getElementById('lang-en');
+        const player = document.getElementById('audio-player');
+        const track_title_container = document.getElementById('track-title-container');
+        const track_title = document.getElementById('track-title');
+        const prev_btn = document.getElementById('prev-btn');
+        const next_btn = document.getElementById('next-btn');
+        const play_btn = document.getElementById('play-pause-btn');
+
+        const play_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>`;
+        const pause_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>`;
+        
+        let is_hovering = false;
+        let warning_timer = null;
+        let frenzy_timer = null;
+        let frenzy_spawner = null;
+        let current_track = 0;
+        let is_playing = false;
+        let active_frenzy_btn = null;
+        const anims = ['frenzy-1', 'frenzy-2', 'frenzy-3', 'frenzy-4'];
+        const is_touch_device = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+
+        function make_prompt(is_frenzy = false) {
+            const prompt = document.createElement('div');
+            const lang = localStorage.getItem('lang') || 'ru';
+            prompt.className = 'prompt-text';
+            prompt.textContent = info[lang].prompt;
+            prompt.style.animationName = is_frenzy ? anims[Math.floor(Math.random() * anims.length)] : 'gentle-burst';
+            prompt.style.animationDuration = is_frenzy ? '0.7s' : '2.5s';
+            const x = Math.random() * (window.innerWidth - 150);
+            const y = Math.random() * (window.innerHeight - 100);
+            prompt.style.left = `${x}px`;
+            prompt.style.top = `${y}px`;
+            body.appendChild(prompt);
+            setTimeout(() => prompt.remove(), is_frenzy ? 700 : 2500);
+        }
+        
+        function stop_effects() {
+            is_hovering = false;
+            clearTimeout(warning_timer); 
+            clearTimeout(frenzy_timer); 
+            clearInterval(frenzy_spawner);
+            body.classList.remove('frenzy-mode'); 
+            body.classList.remove('screen-shake');
+            all_btns.forEach(b => b.classList.remove('mobile-active'));
+            active_frenzy_btn = null;
+        }
+
+        function start_frenzy() {
+            if (is_hovering) return;
+            is_hovering = true;
+            
+            const warnings_start_timer = setTimeout(() => {
+                if (!is_hovering) return;
+                function spawn_warning() {
+                    if (!is_hovering) { clearTimeout(warning_timer); return; }
+                    make_prompt(false);
+                    warning_timer = setTimeout(spawn_warning, 1800 + Math.random() * 1000);
+                }
+                spawn_warning();
+            }, 3000);
+
+            frenzy_timer = setTimeout(() => {
+                if (!is_hovering) return;
+                clearTimeout(warnings_start_timer); clearTimeout(warning_timer);
+                
+                const flash = document.createElement('div');
+                flash.className = 'blood-flash';
+                body.appendChild(flash);
+                setTimeout(() => flash.remove(), 800);
+                
+                body.classList.add('frenzy-mode'); body.classList.add('screen-shake');
+                for(let i = 0; i < 8; i++) { setTimeout(() => make_prompt(true), Math.random() * 500); }
+                
+                let prompts_count = 2;
+                frenzy_spawner = setInterval(() => {
+                    if (!is_hovering) { clearInterval(frenzy_spawner); return; }
+                    for (let i = 0; i < prompts_count; i++) { setTimeout(() => make_prompt(true), Math.random() * 400); }
+                    prompts_count++;
+                }, 500);
+            }, 15000);
+        }
+        
+        function set_lang(lang) {
+            const wipe = document.createElement('div');
+            wipe.className = 'lang-wipe';
+            body.appendChild(wipe);
+
+            setTimeout(() => {
+                bio_text.innerHTML = info[lang].bio;
+                tg_btn_text.textContent = info[lang].contact;
+                localStorage.setItem('lang', lang);
+                ru_btn.classList.toggle('active', lang === 'ru');
+                en_btn.classList.toggle('active', lang === 'en');
+            }, 400);
+
+            setTimeout(() => wipe.remove(), 800);
+        }
+
+        function load_track(id) {
+            player.src = info.playlist[id].src;
+            track_title.textContent = info.playlist[id].title;
+            track_title.classList.remove('scrolling');
+            
+            if (track_title.scrollWidth > track_title_container.clientWidth) {
+                track_title.classList.add('scrolling');
+            }
+
+            if (is_playing) player.play();
+        }
+
+        function play_pause_toggle() {
+            is_playing = !is_playing;
+            if (is_playing) {
+                player.play();
+                play_btn.innerHTML = pause_icon;
+            } else {
+                player.pause();
+                play_btn.innerHTML = play_icon;
+            }
+        }
+
+        if (is_touch_device) {
+            all_btns.forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (active_frenzy_btn === btn) {
+                        window.open(btn.href, '_blank');
+                        stop_effects();
+                        return;
+                    }
+                    if (active_frenzy_btn) stop_effects();
+                    
+                    active_frenzy_btn = btn;
+                    btn.classList.add('mobile-active');
+                    start_frenzy();
+                });
+            });
+            document.addEventListener('click', (e) => {
+                const is_button_click = all_btns.some(btn => btn.contains(e.target));
+                if (!is_button_click && active_frenzy_btn) stop_effects();
+            });
+        } else {
+             all_btns.forEach(btn => {
+                btn.addEventListener('mouseenter', start_frenzy);
+                btn.addEventListener('mouseleave', stop_effects);
+            });
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            const saved_lang = localStorage.getItem('lang') || 'ru';
+            set_lang(saved_lang);
+            ds_btn.href = info.discord_link;
+            play_btn.innerHTML = play_icon;
+            load_track(current_track);
+        });
+        
+        ru_btn.addEventListener('click', () => set_lang('ru'));
+        en_btn.addEventListener('click', () => set_lang('en'));
+        play_btn.addEventListener('click', play_pause_toggle);
+        next_btn.addEventListener('click', () => { current_track = (current_track + 1) % info.playlist.length; load_track(current_track); });
+        prev_btn.addEventListener('click', () => { current_track = (current_track - 1 + info.playlist.length) % info.playlist.length; load_track(current_track); });
+        player.addEventListener('ended', () => { current_track = (current_track + 1) % info.playlist.length; load_track(current_track); });
+    </script>
+</body>
+</html>
