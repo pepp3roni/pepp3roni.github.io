@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-
+  <!-- Вступление -->
   <div id="intro-screen">
     <h1 class="intro-text">TAP</h1>
   </div>
@@ -34,7 +34,7 @@
       </div>
     </div>
 
-
+    <!-- Переключатель языков над плеером -->
     <div class="lang-switcher mobile-top">
       <button class="lang-btn" data-lang="ru">RU</button>
       <button class="lang-btn" data-lang="en">EN</button>
@@ -104,21 +104,18 @@
     const prevBtn = document.getElementById('prev-btn');
     const muteInput = document.getElementById('checkboxInput');
 
+    const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+    const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
     let isHovering = false, warningTimer = null, frenzyTimer = null, frenzySpawner = null;
     let currentTrack = 0, isPlaying = false, activeFrenzyBtn = null, langCooldown = false;
     const anims = ['frenzy-1','frenzy-2','frenzy-3','frenzy-4'];
     const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-    const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
-    const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
-
-
     function setLang(lang){
-      if(lang === (localStorage.getItem('lang') || 'ru') || langCooldown) return;
+      if(langCooldown || lang === (localStorage.getItem('lang') || 'ru')) return;
       langCooldown = true;
-      const wipe=document.createElement('div');
-      wipe.className='lang-wipe';
-      body.appendChild(wipe);
+      const wipe=document.createElement('div');wipe.className='lang-wipe';body.appendChild(wipe);
       setTimeout(()=>{
         bioText.innerHTML = info[lang].bio;
         memorialText.innerHTML = info[lang].memorial;
@@ -126,10 +123,9 @@
         localStorage.setItem('lang', lang);
         langBtns.forEach(btn=>btn.classList.toggle('active', btn.dataset.lang === lang));
         wipe.remove();
+        langCooldown=false;
       },400);
-      setTimeout(()=>langCooldown=false,800);
     }
-
 
     function makePrompt(frenzy=false){
       const pr=document.createElement('div');
@@ -143,6 +139,7 @@
       body.appendChild(pr);
       setTimeout(()=>pr.remove(), frenzy?700:2500);
     }
+
     function stopEffects(){
       isHovering=false;
       clearTimeout(warningTimer);clearTimeout(frenzyTimer);clearInterval(frenzySpawner);
@@ -151,6 +148,7 @@
       document.querySelector('.lang-switcher').classList.remove('screen-shake');
       activeFrenzyBtn=null;
     }
+
     function startFrenzy(){
       if(isHovering) return;
       isHovering=true;
@@ -174,12 +172,12 @@
       },15000);
     }
 
-
     function loadTrack(id){
       player.src=info.playlist[id].src;
       trackTitle.textContent=info.playlist[id].title;
       trackTitle.classList.toggle('scrolling', trackTitle.scrollWidth > document.getElementById('track-title-container').clientWidth);
     }
+
     function playPauseToggle(){
       isPlaying=!isPlaying;
       if(isPlaying){
@@ -190,7 +188,6 @@
         playBtn.innerHTML=playIcon;
       }
     }
-
 
     introScreen.addEventListener('click',()=>{
       introScreen.style.opacity=0;
@@ -227,7 +224,6 @@
     prevBtn.addEventListener('click',()=>{currentTrack=(currentTrack-1+info.playlist.length)%info.playlist.length;loadTrack(currentTrack);});
     player.addEventListener('ended',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
     muteInput.addEventListener('change',()=>player.muted = muteInput.checked);
-
 
     langBtns.forEach(btn=>btn.dataset.lang = btn.textContent.toLowerCase());
     setLang(localStorage.getItem('lang') || 'ru');
