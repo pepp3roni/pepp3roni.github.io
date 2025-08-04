@@ -84,8 +84,7 @@ body {
     height: 60px;
     padding: 0 35px;
     font-size: 1.2rem;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
+    border-radius: 15px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
 }
@@ -342,9 +341,19 @@ body.frenzy-mode .memorial-text {
 
 @media (max-width: 768px) {
     .name { font-size: 2.5rem; }
-    .contact-btn { padding: 0 20px; font-size: 1rem; height: 48px; }
-    .discord-btn { width: 48px; height: 48px; }
-    .discord-btn svg { width: 24px; height: 24px; }
+    .contact-btn {
+        padding: 0 20px;
+        font-size: 1rem;
+        height: 52px;
+    }
+    .discord-btn {
+        width: 52px;
+        height: 52px;
+    }
+    .discord-btn svg {
+        width: 26px;
+        height: 26px;
+    }
     .bio-text { font-size: 1rem; }
     .music-player { width: 90%; }
     .lang-switcher { bottom: 80px; }
