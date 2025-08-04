@@ -28,6 +28,7 @@ body{background:#111;color:#eee;min-height:100vh;display:flex;justify-content:ce
 .memorial-line .cross{font-size:.65rem;color:#555;transition:color .8s ease,transform .8s ease}
 body.frenzy-mode .memorial-line{color:#fff;text-shadow:0 0 8px #fff}
 body.frenzy-mode .memorial-line .cross{color:#ff1b1b;transform:scale(1.1)}
+
 .buttons-container{margin:35px auto 0;display:flex;justify-content:center;align-items:center;gap:15px}
 .btn{background:rgba(255,255,255,.05);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.1);color:#eee;border-radius:15px;cursor:pointer;font-weight:500;text-decoration:none;display:flex;justify-content:center;align-items:center;position:relative;overflow:hidden;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:box-shadow .3s ease,border-color .3s ease}
 .contact-btn{flex-grow:1;height:56px;padding:0 30px;font-size:1.1rem}
@@ -66,7 +67,6 @@ body.frenzy-mode .prompt-text{background:linear-gradient(45deg,#ff0000,#b30000,#
 #track-title{display:inline-block;transition:opacity .18s ease}
 #track-title.scrolling{padding-left:100%;animation:scroll-text 10s linear infinite}
 @keyframes scroll-text{0%{transform:translateX(0)}100%{transform:translateX(-100%)}}
-
 
 #checkboxInput{display:none}
 .toggleSwitch{width:50px;height:50px;position:relative;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.1);border-radius:50%;cursor:pointer;transition:background .3s}
