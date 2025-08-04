@@ -1,141 +1,275 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>pepp3roni</title>
-<link rel="stylesheet" href="./style.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>pepp3roni</title>
+  <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-<div class="container">
-  <div class="profile">
-    <h1 class="name">pepp3roni</h1>
-    <p class="bio-text" id="bio-text"></p>
-    <span class="memorial-line" id="memorial-line">
-      <span id="memorial-text"></span><small class="cross"> ☦</small>
-    </span>
-  </div>
+  <div id="main-content">
+    <div class="container">
+      <div class="profile">
+        <h1 class="name">pepp3roni</h1>
+        <p class="bio-text" id="bio-text"></p>
+        <span class="memorial-line" id="memorial-line">
+          <span id="memorial-text"></span><small class="cross"> ☦</small>
+        </span>
+      </div>
 
-  <div class="buttons-container">
-    <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M20.317 4.37a18.08 18.08 0 0 0-4.837-2.04C15.312 2.496 15.152 2.674 15 2.865c-1.436-.37-2.954-.37-4.39 0-.154-.19-.315-.37-.482-.536a18.08 18.08 0 0 0-4.837 2.04C1.572 8.528.716 12.569 1.085 16.52c1.804 1.518 3.824 2.663 5.964 3.464.403-.47.772-.97 1.09-1.487-.522-.272-1.02-.575-1.494-.914.118-.05.236-.107.354-.17 3.444 1.818 7.154 1.818 10.598 0 .118.063.236.12.354.17-.474.34-.972.642-1.494.914.318.517.687 1.017 1.09 1.487 2.14-.801 4.16-1.946 5.964-3.464-.46-4.587-1.52-8.603-4.178-12.15zM8.678 14.484c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.59.795 1.59 1.757s-.713 1.756-1.59 1.756zm7.245 0c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.591.795 1.591 1.757s-.714 1.756-1.591 1.756z"/>
-      </svg>
-    </a>
-    <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
-      <span id="contact-btn-text"></span>
-    </a>
-  </div>
-</div>
+      <div class="buttons-container">
+        <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M20.317 4.3698a18.08 18.08 0 0 0-4.837-2.0406C15.312 2.496 15.152 2.674 15 2.865c-1.436-.369-2.954-.369-4.39 0-.154-.19-.315-.37-.482-.536a18.08 18.08 0 0 0-4.837 2.0406C1.572 8.528.716 12.569 1.085 16.52c1.804 1.518 3.824 2.663 5.964 3.464.403-.47.772-.97 1.09-1.487-.522-.272-1.02-.575-1.494-.914.118-.05.236-.107.354-.17 3.444 1.818 7.154 1.818 10.598 0 .118.063.236.12.354.17-.474.34-.972.642-1.494.914.318.517.687 1.017 1.09 1.487 2.14-.801 4.16-1.946 5.964-3.464-.46-4.587-1.52-8.603-4.178-12.1502zM8.678 14.484c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.59.795 1.59 1.757s-.713 1.756-1.59 1.756zm7.245 0c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.591.795 1.591 1.757s-.714 1.756-1.591 1.756z"/>
+          </svg>
+        </a>
+        <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
+          <span id="contact-btn-text"></span>
+        </a>
+      </div>
+      
+      <div class="lang-switcher">
+        <button class="lang-btn" data-lang="ru">RU</button>
+        <button class="lang-btn" data-lang="en">EN</button>
+      </div>
+    </div>
 
-<div class="lang-switcher">
-  <button class="lang-btn" data-lang="ru">RU</button>
-  <button class="lang-btn" data-lang="en">EN</button>
-</div>
+    <div class="music-player">
+      <audio id="audio-player" loop></audio>
+      <button id="prev-btn">⏮</button>
+      <button id="play-pause-btn"></button>
+      <button id="next-btn">⏭</button>
+      <div id="track-title-container">
+        <span id="track-title"></span>
+      </div>
 
-<div class="music-player">
-  <audio id="audio-player" loop></audio>
-  <button id="prev-btn">⏮</button>
-  <button id="play-pause-btn"></button>
-  <button id="next-btn">⏭</button>
-  <div id="track-title-container"><span id="track-title"></span></div>
+      <input type="checkbox" id="checkboxInput">
+      <label for="checkboxInput" class="toggleSwitch">
+        <div class="speaker">
+          <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
+            <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" fill="#fff"/>
+            <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" fill="none"/>
+          </svg>
+        </div>
+        <div class="mute-speaker">
+          <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
+            <path d="m39,14-17,15H6V48H22l17,15z" fill="#fff"/>
+            <path d="m49,26 20,24m0-24-20,24" fill="#fff"/>
+          </svg>
+        </div>
+      </label>
+    </div>
+  </div>
 
-  <input type="checkbox" id="checkboxInput">
-  <label for="checkboxInput" class="toggleSwitch">
-    <div class="speaker">
-      <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
-        <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" fill="#fff"/>
-        <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" fill="none"/>
-      </svg>
-    </div>
-    <div class="mute-speaker">
-      <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
-        <path d="m39,14-17,15H6V48H22l17,15z" fill="#fff"/>
-        <path d="m49,26 20,24m0-24-20,24" fill="#fff"/>
-      </svg>
-    </div>
-  </label>
-</div>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const info = {
+        ru: {
+          bio: "Привет! Я — pepp3roni. Обычная шкила. Изучаю python. Живу в РФ, нравится Lil Peep, Серега Пират (-уши), Tame Impala, СТИНТ, MellSher. Смотрю твич — kishki forever.",
+          memorial: "Максим Spokoynich — вечная память.",
+          contact: "Связаться со мной",
+          prompt: "Жми-Жми"
+        },
+        en: {
+          bio: "Hey! I'm pepp3roni. Just a regular school kid learning Python. I'm from Russia and like Lil Peep, Serega Pirat (-ears), Tame Impala, STINT, and MellSher. I watch Twitch — kishki forever.",
+          memorial: "Maxim Spokoynich, Rest in Peace.",
+          contact: "Contact me",
+          prompt: "Tap-Tap"
+        },
+        discord_link: "https://discord.com/users/1099243706499997768",
+        playlist: [
+          { title: "LiL PEEP x PIXIES x BONES - WHERE IS MY MIND", src: "./music/wmmlilpeep.mp3" },
+          { title: "Серега Пират - КАРТИНЫ", src: "./music/kartini.mp3" }
+        ]
+      };
 
-<script>
-const info={
-  ru:{
-    bio:"Привет! Я — pepp3roni. Обычная шкила. Изучаю python. Живу в РФ, нравится Lil Peep, Серега Пират (-уши), Tame Impala, СТИНТ, MellSher. Смотрю твич — kishki forever.",
-    memorial:"Максим Spokoynich — вечная память.",
-    contact:"Связаться со мной",
-    prompt:"Жми-Жми"
-  },
-  en:{
-    bio:"Hey! I'm pepp3roni. Just a regular school kid learning Python. I'm from Russia and like Lil Peep, Serega Pirat (-ears), Tame Impala, STINT, and MellSher. I watch Twitch — kishki forever.",
-    memorial:"Maxim Spokoynich, Rest in Peace.",
-    contact:"Contact me",
-    prompt:"Tap-Tap"
-  },
-  discord_link:"https://discord.com/users/1099243706499997768",
-  playlist:[
-    {title:"LiL PEEP x PIXIES x BONES - WHERE IS MY MIND",src:"./music/wmmlilpeep.mp3"},
-    {title:"Серега Пират - КАРТИНЫ",src:"./music/kartini.mp3"}
-  ]
-};
+      const body = document.body;
+      const container = document.querySelector('.container');
+      const allBtns = [document.getElementById('contact-btn'), document.getElementById('discord-btn')];
+      const bioText = document.getElementById('bio-text');
+      const memorialText = document.getElementById('memorial-text');
+      const contactBtnText = document.getElementById('contact-btn-text');
+      const dsBtn = document.getElementById('discord-btn');
+      const langBtns = document.querySelectorAll('.lang-btn');
+      const player = document.getElementById('audio-player');
+      const trackTitle = document.getElementById('track-title');
+      const playBtn = document.getElementById('play-pause-btn');
+      const nextBtn = document.getElementById('next-btn');
+      const prevBtn = document.getElementById('prev-btn');
+      const muteInput = document.getElementById('checkboxInput');
 
-const body=document.body;
-const allBtns=[document.getElementById('discord-btn'),document.getElementById('contact-btn')];
-const bioText=document.getElementById('bio-text');
-const memorialText=document.getElementById('memorial-text');
-const contactBtnText=document.getElementById('contact-btn-text');
-const langBtns=document.querySelectorAll('.lang-btn');
-const player=document.getElementById('audio-player');
-const trackTitle=document.getElementById('track-title');
-const playBtn=document.getElementById('play-pause-btn');
-const nextBtn=document.getElementById('next-btn');
-const prevBtn=document.getElementById('prev-btn');
-const muteInput=document.getElementById('checkboxInput');
+      const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+      const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
 
-const playIcon='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>';
-const pauseIcon='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+      let isHovering = false, warningTimer = null, frenzyTimer = null, frenzySpawner = null;
+      let currentTrack = 0, isPlaying = false, activeFrenzyBtn = null, langCooldown = false;
+      const anims = ['frenzy-1','frenzy-2','frenzy-3','frenzy-4'];
+      const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-let currentTrack=0,isPlaying=false,langCooldown=false;
+      function setLang(lang){
+ 
+        bioText.innerHTML = info[lang].bio;
+        memorialText.innerHTML = info[lang].memorial;
+        contactBtnText.textContent = info[lang].contact;
+        
+      
+        localStorage.setItem('lang', lang);
+        langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
+      }
+      
+      function changeLangWithAnimation(lang) {
+        if(langCooldown || lang === localStorage.getItem('lang')) return;
+        langCooldown = true;
+        const wipe = document.createElement('div');
+        wipe.className = 'lang-wipe';
+        
+        wipe.addEventListener('animationend', () => {
+          wipe.remove();
+          langCooldown = false;
+        });
+        body.appendChild(wipe);
 
-function setLang(lang){
-  if(langCooldown||lang===(localStorage.getItem('lang')||'ru'))return;
-  langCooldown=true;
-  const wipe=document.createElement('div');wipe.className='lang-wipe';body.appendChild(wipe);
-  setTimeout(()=>{
-    bioText.innerHTML=info[lang].bio;
-    memorialText.innerHTML=info[lang].memorial;
-    contactBtnText.textContent=info[lang].contact;
-    localStorage.setItem('lang',lang);
-    langBtns.forEach(btn=>btn.classList.toggle('active',btn.dataset.lang===lang));
-    wipe.remove();
-    langCooldown=false;
-  },400);
-}
+        setTimeout(() => {
+          setLang(lang);
+        }, 400); 
+      }
 
-function loadTrack(id){
-  player.src=info.playlist[id].src;
-  trackTitle.textContent=info.playlist[id].title;
-  trackTitle.classList.toggle('scrolling',trackTitle.scrollWidth>document.getElementById('track-title-container').clientWidth);
-}
+      function makePrompt(frenzy = false){
+        const pr = document.createElement('div');
+        const lang = localStorage.getItem('lang') || 'ru';
+        pr.className = 'prompt-text';
+        pr.textContent = info[lang].prompt;
+        pr.style.animationName = frenzy ? anims[Math.floor(Math.random() * 4)] : 'gentle-burst';
+        pr.style.animationDuration = frenzy ? '.7s' : '2.5s';
+        pr.style.left = Math.random() * (innerWidth - 150) + 'px';
+        pr.style.top = Math.random() * (innerHeight - 100) + 'px';
+        body.appendChild(pr);
+        setTimeout(() => pr.remove(), frenzy ? 700 : 2500);
+      }
 
-function playPauseToggle(){
-  isPlaying=!isPlaying;
-  if(isPlaying){player.play();playBtn.innerHTML=pauseIcon;}else{player.pause();playBtn.innerHTML=playIcon;}
-}
+      function stopEffects(){
+        isHovering = false;
+        clearTimeout(warningTimer);
+        clearTimeout(frenzyTimer);
+        clearInterval(frenzySpawner);
+        body.classList.remove('frenzy-mode');
+        container.classList.remove('screen-shake');
+        allBtns.forEach(b => b.classList.remove('mobile-active'));
+        activeFrenzyBtn = null;
+      }
 
-loadTrack(currentTrack);
-playBtn.innerHTML=playIcon;
-muteInput.checked=false;
-player.muted=false;
+      function startFrenzy(){
+        if(isHovering) return;
+        isHovering = true;
+        warningTimer = setTimeout(() => {
+          function spawn() {
+            if(!isHovering) return;
+            makePrompt();
+            warningTimer = setTimeout(spawn, 1800 + Math.random() * 1000);
+          }
+          spawn();
+        }, 3000);
+        frenzyTimer = setTimeout(() => {
+          if(!isHovering) return;
+          body.classList.add('frenzy-mode');
+          container.classList.add('screen-shake');
+          const flash = document.createElement('div');
+          flash.className = 'blood-flash';
+          body.appendChild(flash);
+          setTimeout(() => flash.remove(), 800);
+          for(let i = 0; i < 8; i++) setTimeout(() => makePrompt(true), Math.random() * 500);
+          let cnt = 2;
+          frenzySpawner = setInterval(() => {
+            if(!isHovering) {
+              clearInterval(frenzySpawner);
+              return;
+            }
+            for(let i = 0; i < cnt; i++) setTimeout(() => makePrompt(true), Math.random() * 400);
+            cnt++;
+          }, 500);
+        }, 15000);
+      }
 
-langBtns.forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
-playBtn.addEventListener('click',playPauseToggle);
-nextBtn.addEventListener('click',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
-prevBtn.addEventListener('click',()=>{currentTrack=(currentTrack-1+info.playlist.length)%info.playlist.length;loadTrack(currentTrack);});
-player.addEventListener('ended',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
-muteInput.addEventListener('change',()=>player.muted=muteInput.checked);
+      function loadTrack(id, autoplay = false){
+        player.src = info.playlist[id].src;
+        trackTitle.textContent = info.playlist[id].title;
+        trackTitle.classList.toggle('scrolling', trackTitle.scrollWidth > document.getElementById('track-title-container').clientWidth);
+        if (autoplay) {
+          player.play();
+          isPlaying = true;
+          playBtn.innerHTML = pauseIcon;
+        }
+      }
 
-langBtns.forEach(btn=>btn.dataset.lang=btn.textContent.toLowerCase());
-setLang(localStorage.getItem('lang')||'ru');
-</script>
+      function playPauseToggle(){
+        if(!player.src || player.src.endsWith('/')) {
+            loadTrack(currentTrack, true);
+            return;
+        }
+        isPlaying = !isPlaying;
+        if(isPlaying){
+          player.play();
+          playBtn.innerHTML = pauseIcon;
+        } else {
+          player.pause();
+          playBtn.innerHTML = playIcon;
+        }
+      }
+
+
+      
+      body.classList.add('loaded');
+      loadTrack(currentTrack, false);
+      
+      if(isTouch){
+        allBtns.forEach(btn => {
+          btn.addEventListener('click', e => {
+            e.preventDefault();
+            if(activeFrenzyBtn === btn) {
+              window.open(btn.href, '_blank');
+              stopEffects();
+              return;
+            }
+            if(activeFrenzyBtn) stopEffects();
+            activeFrenzyBtn = btn;
+            btn.classList.add('mobile-active');
+            startFrenzy();
+          });
+        });
+        document.addEventListener('click', e => {
+          if (!allBtns.some(btn => btn.contains(e.target)) && activeFrenzyBtn) stopEffects();
+        });
+      } else {
+        allBtns.forEach(btn => {
+          btn.addEventListener('mouseenter', startFrenzy);
+          btn.addEventListener('mouseleave', stopEffects);
+        });
+      }
+
+      langBtns.forEach(btn => btn.addEventListener('click', () => changeLangWithAnimation(btn.dataset.lang)));
+      playBtn.addEventListener('click', playPauseToggle);
+      nextBtn.addEventListener('click', () => { currentTrack = (currentTrack + 1) % info.playlist.length; loadTrack(currentTrack, isPlaying); });
+      prevBtn.addEventListener('click', () => { currentTrack = (currentTrack - 1 + info.playlist.length) % info.playlist.length; loadTrack(currentTrack, isPlaying); });
+      player.addEventListener('ended', () => { nextBtn.click(); });
+      muteInput.addEventListener('change', () => player.muted = muteInput.checked);
+
+      playBtn.innerHTML = playIcon;
+      muteInput.checked = false;
+      player.muted = false;
+      dsBtn.href = info.discord_link;
+
+      
+      const savedLang = localStorage.getItem('lang');
+      if (savedLang) {
+          setLang(savedLang); 
+      } else {
+          
+          const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
+          const isCIS = ['ru', 'be', 'uk', 'kk', 'ky', 'uz'].some(lang => userLang.startsWith(lang));
+          const defaultLang = isCIS ? 'ru' : 'en';
+          setLang(defaultLang);
+      }
+    });
+  </script>
 </body>
 </html>
