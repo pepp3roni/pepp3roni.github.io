@@ -60,6 +60,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: 15px;
 }
 
 .btn {
@@ -81,13 +82,10 @@ body {
 
 .contact-btn {
     flex-grow: 1;
-    max-width: 300px;
     height: 56px;
     padding: 0 30px;
     font-size: 1.1rem;
     border-radius: 15px;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
 }
 
 .discord-btn {
@@ -96,16 +94,6 @@ body {
     height: 56px;
     padding: 0;
     border-radius: 50%;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    margin-right: -1px; /* Слегка перекрываем границу для соединения */
-    z-index: 1;
-}
-
-.discord-btn svg {
-    width: 24px;
-    height: 24px;
-    display: block;
 }
 
 .btn:hover {
@@ -133,6 +121,12 @@ body {
 .btn:hover::before,
 .btn.mobile-active::before {
     opacity: 0.4;
+}
+
+.discord-btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 @keyframes gradientName {
@@ -507,9 +501,51 @@ body.frenzy-mode .memorial-text {
 
     .music-player {
         width: 90%;
+        padding: 8px 12px;
+        gap: 10px;
+    }
+
+    .music-player button {
+        font-size: 1.2rem;
+        width: 25px;
+    }
+
+    .music-player button svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    #track-title-container {
+        max-width: 120px;
     }
 
     .lang-switcher {
         bottom: 80px;
+        right: 15px;
+        gap: 8px;
+    }
+
+    .lang-btn {
+        padding: 6px 10px;
+        font-size: 0.9rem;
+    }
+    
+
+    @media (max-width: 480px) {
+        .buttons-container {
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .contact-btn, .discord-btn {
+            width: 100%;
+            max-width: none;
+            border-radius: 15px;
+        }
+        
+        .discord-btn {
+            width: 60px;
+            height: 60px;
+        }
     }
 }
