@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>pepp3roni</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
 
@@ -18,7 +18,9 @@
             <div class="profile">
                 <h1 class="name">pepp3roni</h1>
                 <p class="bio-text" id="bio-text"></p>
-                <span class="memorial-line" id="memorial-line"></span>
+                <span class="memorial-line" id="memorial-line">
+                    Максим Spokoynich — вечная память. <small class="cross">☦</small>
+                </span>
             </div>
 
             <div class="buttons-container">
@@ -33,10 +35,12 @@
             </div>
         </div>
 
-        <div class="lang-switcher">
+
+        <div class="lang-switcher mobile-top">
             <button class="lang-btn" id="lang-ru">RU</button>
             <button class="lang-btn" id="lang-en">EN</button>
         </div>
+
 
         <div class="music-player">
             <audio id="audio-player" loop></audio>
@@ -46,6 +50,7 @@
             <div id="track-title-container">
                 <span id="track-title"></span>
             </div>
+
 
             <input type="checkbox" id="checkboxInput">
             <label for="checkboxInput" class="toggleSwitch">
@@ -89,8 +94,8 @@
         };
 
         const body = document.body;
-        const mainContent = document.getElementById('main-content');
         const introScreen = document.getElementById('intro-screen');
+        const mainContent = document.getElementById('main-content');
         const allBtns = [document.getElementById('contact-btn'), document.getElementById('discord-btn')];
         const bioText = document.getElementById('bio-text');
         const memorialLine = document.getElementById('memorial-line');
@@ -127,6 +132,26 @@
             }, 300);
         });
 
+
+        function setLang(lang){
+            if(lang === (localStorage.getItem('lang') || 'ru') || langCooldown) return;
+            langCooldown = true;
+            const wipe=document.createElement('div');
+            wipe.className='lang-wipe';
+            body.appendChild(wipe);
+            setTimeout(()=>{
+                bioText.innerHTML=info[lang].bio;
+                memorialLine.innerHTML=info[lang].memorial + ' <small class="cross">☦</small>';
+                tgBtnText.textContent=info[lang].contact;
+                localStorage.setItem('lang',lang);
+                ruBtn.classList.toggle('active',lang==='ru');
+                enBtn.classList.toggle('active',lang==='en');
+                document.querySelectorAll('.lang-btn').forEach(btn=>btn.classList.toggle('active',btn.id==='lang-'+lang));
+            },400);
+            setTimeout(()=>{wipe.remove();langCooldown=false;},800);
+        }
+
+
         function makePrompt(frenzy=false){
             const pr=document.createElement('div');
             const lang=localStorage.getItem('lang')||'ru';
@@ -139,62 +164,40 @@
             body.appendChild(pr);
             setTimeout(()=>pr.remove(), frenzy?700:2500);
         }
-
         function stopEffects(){
             isHovering=false;
-            clearTimeout(warningTimer); clearTimeout(frenzyTimer); clearInterval(frenzySpawner);
+            clearTimeout(warningTimer);clearTimeout(frenzyTimer);clearInterval(frenzySpawner);
             body.classList.remove('frenzy-mode','screen-shake');
             allBtns.forEach(b=>b.classList.remove('mobile-active'));
             activeFrenzyBtn=null;
         }
-
         function startFrenzy(){
             if(isHovering) return;
             isHovering=true;
-            warningTimer = setTimeout(()=>{
+            warningTimer=setTimeout(()=>{
                 function spawn(){
                     if(!isHovering) return;
                     makePrompt();
-                    warningTimer = setTimeout(spawn, 1800+Math.random()*1000);
+                    warningTimer=setTimeout(spawn,1800+Math.random()*1000);
                 }
                 spawn();
-            }, 3000);
-
-            frenzyTimer = setTimeout(()=>{
+            },3000);
+            frenzyTimer=setTimeout(()=>{
                 if(!isHovering) return;
                 clearTimeout(warningTimer);
-                const f=document.createElement('div');
-                f.className='blood-flash';
-                body.appendChild(f);
+                const f=document.createElement('div');f.className='blood-flash';body.appendChild(f);
                 setTimeout(()=>f.remove(),800);
                 body.classList.add('frenzy-mode','screen-shake');
-                for(let i=0;i<8;i++) setTimeout(()=>makePrompt(true), Math.random()*500);
+                for(let i=0;i<8;i++) setTimeout(()=>makePrompt(true),Math.random()*500);
                 let cnt=2;
                 frenzySpawner=setInterval(()=>{
-                    if(!isHovering){ clearInterval(frenzySpawner); return; }
-                    for(let i=0;i<cnt;i++) setTimeout(()=>makePrompt(true), Math.random()*400);
+                    if(!isHovering){clearInterval(frenzySpawner);return;}
+                    for(let i=0;i<cnt;i++) setTimeout(()=>makePrompt(true),Math.random()*400);
                     cnt++;
                 },500);
-            }, 15000);
+            },15000);
         }
 
-
-        function setLang(lang){
-            if(lang === (localStorage.getItem('lang') || 'ru') || langCooldown) return;
-            langCooldown = true;
-            const wipe=document.createElement('div');
-            wipe.className='lang-wipe';
-            body.appendChild(wipe);
-            setTimeout(()=>{
-                bioText.innerHTML=info[lang].bio;
-                memorialLine.innerHTML=info[lang].memorial;
-                tgBtnText.textContent=info[lang].contact;
-                localStorage.setItem('lang',lang);
-                ruBtn.classList.toggle('active',lang==='ru');
-                enBtn.classList.toggle('active',lang==='en');
-            },400);
-            setTimeout(()=>{ wipe.remove(); langCooldown=false; },800);
-        }
 
         function loadTrack(id){
             player.src=info.playlist[id].src;
@@ -211,11 +214,10 @@
                 },50);
             },180);
         }
-
         function playPauseToggle(){
             isPlaying=!isPlaying;
-            if(isPlaying){ player.play(); playBtn.innerHTML=pauseIcon; }
-            else{ player.pause(); playBtn.innerHTML=playIcon; }
+            if(isPlaying){player.play();playBtn.innerHTML=pauseIcon;}
+            else{player.pause();playBtn.innerHTML=playIcon;}
         }
 
 
@@ -223,15 +225,9 @@
             allBtns.forEach(btn=>{
                 btn.addEventListener('click',e=>{
                     e.preventDefault();
-                    if(activeFrenzyBtn===btn){
-                        window.open(btn.href,'_blank');
-                        stopEffects();
-                        return;
-                    }
+                    if(activeFrenzyBtn===btn){window.open(btn.href,'_blank');stopEffects();return;}
                     if(activeFrenzyBtn) stopEffects();
-                    activeFrenzyBtn=btn;
-                    btn.classList.add('mobile-active');
-                    startFrenzy();
+                    activeFrenzyBtn=btn;btn.classList.add('mobile-active');startFrenzy();
                 });
             });
             document.addEventListener('click',e=>{
@@ -243,26 +239,21 @@
                 btn.addEventListener('mouseleave',stopEffects);
             });
         }
-
         ruBtn.addEventListener('click',()=>setLang('ru'));
         enBtn.addEventListener('click',()=>setLang('en'));
         playBtn.addEventListener('click',playPauseToggle);
-        nextBtn.addEventListener('click',()=>{ currentTrack=(currentTrack+1)%info.playlist.length; loadTrack(currentTrack); });
-        prevBtn.addEventListener('click',()=>{ currentTrack=(currentTrack-1+info.playlist.length)%info.playlist.length; loadTrack(currentTrack); });
-        player.addEventListener('ended',()=>{ currentTrack=(currentTrack+1)%info.playlist.length; loadTrack(currentTrack); });
+        nextBtn.addEventListener('click',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
+        prevBtn.addEventListener('click',()=>{currentTrack=(currentTrack-1+info.playlist.length)%info.playlist.length;loadTrack(currentTrack);});
+        player.addEventListener('ended',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
+
 
         const muteInput = document.getElementById('checkboxInput');
-        muteInput.addEventListener('change', () => {
-            player.muted = muteInput.checked;
-        });
+        muteInput.addEventListener('change',()=>{ player.muted = muteInput.checked; });
 
 
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved=localStorage.getItem('lang')||'ru';
-            setLang(saved);
-            dsBtn.href=info.discord_link;
-            playBtn.innerHTML=playIcon;
-        });
+        setLang(localStorage.getItem('lang') || 'ru');
+        dsBtn.href = info.discord_link;
+        playBtn.innerHTML = playIcon;
     </script>
 </body>
 </html>
