@@ -82,9 +82,9 @@ body {
 .contact-btn {
     flex-grow: 1;
     max-width: 300px;
-    height: 60px;
-    padding: 0 35px;
-    font-size: 1.2rem;
+    height: 56px;
+    padding: 0 30px;
+    font-size: 1.1rem;
     border-radius: 15px;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
@@ -92,19 +92,19 @@ body {
 
 .discord-btn {
     flex-shrink: 0;
-    width: 60px;
-    height: 60px;
+    width: 56px;
+    height: 56px;
     padding: 0;
     border-radius: 50%;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-    margin-right: -15px;
+    margin-right: -1px; /* Слегка перекрываем границу для соединения */
     z-index: 1;
 }
 
 .discord-btn svg {
-    width: 28px;
-    height: 28px;
+    width: 24px;
+    height: 24px;
     display: block;
 }
 
@@ -461,22 +461,20 @@ body.frenzy-mode .memorial-text {
     max-width: 150px;
     overflow: hidden;
     white-space: nowrap;
+    position: relative;
 }
 
 #track-title {
     display: inline-block;
-}
-
-#track-title.scrolling {
+    white-space: nowrap;
     padding-left: 100%;
-    animation: scroll-text 10s linear infinite;
+    animation: scroll-text 15s linear infinite;
 }
 
 @keyframes scroll-text {
     0% {
         transform: translateX(0);
     }
-
     100% {
         transform: translateX(-100%);
     }
@@ -489,18 +487,18 @@ body.frenzy-mode .memorial-text {
 
     .contact-btn {
         padding: 0 20px;
-        font-size: 1.1rem;
-        height: 52px;
+        font-size: 1rem;
+        height: 48px;
     }
 
     .discord-btn {
-        width: 52px;
-        height: 52px;
+        width: 48px;
+        height: 48px;
     }
 
     .discord-btn svg {
-        width: 26px;
-        height: 26px;
+        width: 20px;
+        height: 20px;
     }
 
     .bio-text {
