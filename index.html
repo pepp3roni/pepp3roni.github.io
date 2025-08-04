@@ -7,12 +7,11 @@
   <link rel="stylesheet" href="./style.css"/>
 </head>
 <body>
-  <!-- Вступительный экран -->
+
   <div id="intro-screen">
     <h1 class="intro-text">TAP</h1>
   </div>
 
-  <!-- Основной контент (скрыт) -->
   <div id="main-content" style="display:none">
     <div class="container">
       <div class="profile">
@@ -35,13 +34,12 @@
       </div>
     </div>
 
-    <!-- Переключатель языков над плеером -->
+
     <div class="lang-switcher mobile-top">
-      <button class="lang-btn" id="lang-ru">RU</button>
-      <button class="lang-btn" id="lang-en">EN</button>
+      <button class="lang-btn" data-lang="ru">RU</button>
+      <button class="lang-btn" data-lang="en">EN</button>
     </div>
 
-    <!-- Плеер -->
     <div class="music-player">
       <audio id="audio-player" loop></audio>
       <button id="prev-btn">⏮</button>
@@ -51,13 +49,12 @@
         <span id="track-title"></span>
       </div>
 
-      <!-- Кнопка громкости -->
       <input type="checkbox" id="checkboxInput">
       <label for="checkboxInput" class="toggleSwitch">
         <div class="speaker">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 75 75">
-            <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" stroke="#fff" stroke-width="5" fill="#fff"/>
-            <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" fill="none" stroke="#fff" stroke-width="5"/>
+          <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
+            <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" fill="#fff"/>
+            <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" fill="none"/>
           </svg>
         </div>
         <div class="mute-speaker">
@@ -91,7 +88,6 @@
       ]
     };
 
-    /* === UTILS === */
     const body = document.body;
     const introScreen = document.getElementById('intro-screen');
     const mainContent = document.getElementById('main-content');
@@ -113,20 +109,28 @@
     const anims = ['frenzy-1','frenzy-2','frenzy-3','frenzy-4'];
     const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-    /* === Lang === */
+    const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+    const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
+
+
     function setLang(lang){
       if(lang === (localStorage.getItem('lang') || 'ru') || langCooldown) return;
       langCooldown = true;
-      bioText.innerHTML = info[lang].bio;
-      memorialText.innerHTML = info[lang].memorial;
-      contactBtnText.textContent = info[lang].contact;
-      dsBtn.href = info.discord_link;
-      langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
-      localStorage.setItem('lang', lang);
-      setTimeout(() => langCooldown = false, 800);
+      const wipe=document.createElement('div');
+      wipe.className='lang-wipe';
+      body.appendChild(wipe);
+      setTimeout(()=>{
+        bioText.innerHTML = info[lang].bio;
+        memorialText.innerHTML = info[lang].memorial;
+        contactBtnText.textContent = info[lang].contact;
+        localStorage.setItem('lang', lang);
+        langBtns.forEach(btn=>btn.classList.toggle('active', btn.dataset.lang === lang));
+        wipe.remove();
+      },400);
+      setTimeout(()=>langCooldown=false,800);
     }
 
-    /* === Frenzy === */
+
     function makePrompt(frenzy=false){
       const pr=document.createElement('div');
       const lang=localStorage.getItem('lang')||'ru';
@@ -170,14 +174,24 @@
       },15000);
     }
 
-    /* === Player === */
+
     function loadTrack(id){
       player.src=info.playlist[id].src;
       trackTitle.textContent=info.playlist[id].title;
       trackTitle.classList.toggle('scrolling', trackTitle.scrollWidth > document.getElementById('track-title-container').clientWidth);
     }
+    function playPauseToggle(){
+      isPlaying=!isPlaying;
+      if(isPlaying){
+        player.play();
+        playBtn.innerHTML=pauseIcon;
+      }else{
+        player.pause();
+        playBtn.innerHTML=playIcon;
+      }
+    }
 
-    /* === Events === */
+
     introScreen.addEventListener('click',()=>{
       introScreen.style.opacity=0;
       setTimeout(()=>{
@@ -185,7 +199,8 @@
         mainContent.style.display='block';
         loadTrack(currentTrack);
         player.play();
-        playBtn.innerHTML='<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>';
+        isPlaying=true;
+        playBtn.innerHTML=pauseIcon;
       },300);
     });
 
@@ -207,13 +222,14 @@
     }
 
     langBtns.forEach(btn=>btn.addEventListener('click',()=>setLang(btn.dataset.lang)));
-    playBtn.addEventListener('click',()=>{isPlaying=!isPlaying;isPlaying?player.play():player.pause();});
+    playBtn.addEventListener('click',playPauseToggle);
     nextBtn.addEventListener('click',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
     prevBtn.addEventListener('click',()=>{currentTrack=(currentTrack-1+info.playlist.length)%info.playlist.length;loadTrack(currentTrack);});
+    player.addEventListener('ended',()=>{currentTrack=(currentTrack+1)%info.playlist.length;loadTrack(currentTrack);});
     muteInput.addEventListener('change',()=>player.muted = muteInput.checked);
 
-    /* === Init === */
-    langBtns.forEach(btn=>btn.dataset.lang = btn.id.split('-')[1]);
+
+    langBtns.forEach(btn=>btn.dataset.lang = btn.textContent.toLowerCase());
     setLang(localStorage.getItem('lang') || 'ru');
   </script>
 </body>
