@@ -60,7 +60,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 15px;
 }
 
 .btn {
@@ -82,18 +81,30 @@ body {
 
 .contact-btn {
     flex-grow: 1;
-    height: 56px;
-    padding: 0 30px;
-    font-size: 1.1rem;
+    max-width: 300px;
+    height: 60px;
+    padding: 0 35px;
+    font-size: 1.2rem;
     border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
 .discord-btn {
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 60px;
+    height: 60px;
     padding: 0;
     border-radius: 50%;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    margin-right: -15px;
+    z-index: 2;
+}
+
+.discord-btn svg {
+    width: 28px;
+    height: 28px;
 }
 
 .btn:hover {
@@ -123,34 +134,15 @@ body {
     opacity: 0.4;
 }
 
-.discord-btn svg {
-    width: 24px;
-    height: 24px;
-    display: block;
-}
-
 @keyframes gradientName {
-    0% {
-        background-position: 0% 50%
-    }
-
-    50% {
-        background-position: 100% 50%
-    }
-
-    100% {
-        background-position: 0% 50%
-    }
+    0% { background-position: 0% 50% }
+    50% { background-position: 100% 50% }
+    100% { background-position: 0% 50% }
 }
 
 @keyframes gradientBtn {
-    0% {
-        background-position: 0% 50%
-    }
-
-    100% {
-        background-position: 400% 50%
-    }
+    0% { background-position: 0% 50% }
+    100% { background-position: 400% 50% }
 }
 
 .prompt-text {
@@ -165,101 +157,39 @@ body {
 }
 
 @keyframes gentle-burst {
-    0% {
-        transform: translateY(20px) scale(.8);
-        opacity: 0
-    }
-
-    20% {
-        transform: translateY(0) scale(1);
-        opacity: 1
-    }
-
-    80% {
-        transform: translateY(-15px) scale(1.1);
-        opacity: 1
-    }
-
-    100% {
-        transform: translateY(-25px) scale(1);
-        opacity: 0
-    }
+    0% { transform: translateY(20px) scale(.8); opacity: 0 }
+    20% { transform: translateY(0) scale(1); opacity: 1 }
+    80% { transform: translateY(-15px) scale(1.1); opacity: 1 }
+    100% { transform: translateY(-25px) scale(1); opacity: 0 }
 }
 
 @keyframes frenzy-1 {
-    0% {
-        transform: scale(.5) rotate(-35deg);
-        opacity: 0
-    }
-
-    60% {
-        transform: scale(1.2) rotate(5deg);
-        opacity: 1
-    }
-
-    100% {
-        transform: scale(1.1) rotate(0deg);
-        opacity: 0
-    }
+    0% { transform: scale(.5) rotate(-35deg); opacity: 0 }
+    60% { transform: scale(1.2) rotate(5deg); opacity: 1 }
+    100% { transform: scale(1.1) rotate(0deg); opacity: 0 }
 }
 
 @keyframes frenzy-2 {
-    0% {
-        transform: translateX(-100px) scale(.7) skew(20deg);
-        opacity: 0
-    }
-
-    50% {
-        transform: translateX(0) scale(1) skew(0);
-        opacity: 1
-    }
-
-    100% {
-        transform: translateX(100px) scale(.7) skew(-20deg);
-        opacity: 0
-    }
+    0% { transform: translateX(-100px) scale(.7) skew(20deg); opacity: 0 }
+    50% { transform: translateX(0) scale(1) skew(0); opacity: 1 }
+    100% { transform: translateX(100px) scale(.7) skew(-20deg); opacity: 0 }
 }
 
 @keyframes frenzy-3 {
-    0% {
-        transform: scale(2);
-        opacity: 0
-    }
-
-    70% {
-        transform: scale(.9);
-        opacity: 1
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 0
-    }
+    0% { transform: scale(2); opacity: 0 }
+    70% { transform: scale(.9); opacity: 1 }
+    100% { transform: scale(1); opacity: 0 }
 }
 
 @keyframes frenzy-4 {
-    0% {
-        transform: translateY(100px) rotate(30deg);
-        opacity: 0
-    }
-
-    60% {
-        transform: translateY(-10px) rotate(-5deg);
-        opacity: 1
-    }
-
-    100% {
-        transform: translateY(-20px) rotate(0);
-        opacity: 0
-    }
+    0% { transform: translateY(100px) rotate(30deg); opacity: 0 }
+    60% { transform: translateY(-10px) rotate(-5deg); opacity: 1 }
+    100% { transform: translateY(-20px) rotate(0); opacity: 0 }
 }
 
 .blood-flash {
     position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    top: 0; left: 0; right: 0; bottom: 0;
     background: #ff0000;
     z-index: 9999;
     pointer-events: none;
@@ -268,25 +198,14 @@ body {
 }
 
 @keyframes bloodFlashAnimation {
-    0% {
-        opacity: 0
-    }
-
-    15% {
-        opacity: 0.8
-    }
-
-    100% {
-        opacity: 0
-    }
+    0% { opacity: 0 }
+    15% { opacity: 0.8 }
+    100% { opacity: 0 }
 }
 
 .lang-wipe {
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: 0; left: 0; width: 100%; height: 100%;
     background: #333;
     z-index: 9998;
     pointer-events: none;
@@ -294,17 +213,9 @@ body {
 }
 
 @keyframes langWipeAnimation {
-    0% {
-        transform: translateX(100%)
-    }
-
-    50% {
-        transform: translateX(0)
-    }
-
-    100% {
-        transform: translateX(-100%)
-    }
+    0% { transform: translateX(100%) }
+    50% { transform: translateX(0) }
+    100% { transform: translateX(-100%) }
 }
 
 body.frenzy-mode .name {
@@ -339,47 +250,16 @@ body.frenzy-mode .memorial-text {
 }
 
 @keyframes screen-shake {
-
-    0%,
-    100% {
-        transform: translate(0, 0)
-    }
-
-    10% {
-        transform: translate(-2px, -3px)
-    }
-
-    20% {
-        transform: translate(2px, 0)
-    }
-
-    30% {
-        transform: translate(4px, 3px)
-    }
-
-    40% {
-        transform: translate(2px, -2px)
-    }
-
-    50% {
-        transform: translate(-2px, 3px)
-    }
-
-    60% {
-        transform: translate(-4px, 2px)
-    }
-
-    70% {
-        transform: translate(4px, 2px)
-    }
-
-    80% {
-        transform: translate(-2px, -2px)
-    }
-
-    90% {
-        transform: translate(2px, 3px)
-    }
+    0%, 100% { transform: translate(0, 0) }
+    10% { transform: translate(-2px, -3px) }
+    20% { transform: translate(2px, 0) }
+    30% { transform: translate(4px, 3px) }
+    40% { transform: translate(2px, -2px) }
+    50% { transform: translate(-2px, 3px) }
+    60% { transform: translate(-4px, 2px) }
+    70% { transform: translate(4px, 2px) }
+    80% { transform: translate(-2px, -2px) }
+    90% { transform: translate(2px, 3px) }
 }
 
 .screen-shake .container {
@@ -434,17 +314,6 @@ body.frenzy-mode .memorial-text {
     cursor: pointer;
     width: 30px;
     text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    margin: 0;
-}
-
-.music-player button svg {
-    width: 24px;
-    height: 24px;
-    display: block;
 }
 
 #play-pause-btn svg {
@@ -455,97 +324,67 @@ body.frenzy-mode .memorial-text {
     max-width: 150px;
     overflow: hidden;
     white-space: nowrap;
-    position: relative;
 }
 
 #track-title {
     display: inline-block;
-    white-space: nowrap;
+}
+
+#track-title.scrolling {
     padding-left: 100%;
-    animation: scroll-text 15s linear infinite;
+    animation: scroll-text 10s linear infinite;
 }
 
 @keyframes scroll-text {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(-100%);
-    }
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 @media (max-width: 768px) {
-    .name {
-        font-size: 2.5rem;
+    body {
+        display: block;
+        padding: 20px 15px 80px 15px;
     }
-
+    .container {
+        margin-top: 10vh;
+    }
+    .name { 
+        font-size: 2.5rem; 
+    }
+    .bio-text { 
+        font-size: 1rem; 
+    }
     .contact-btn {
         padding: 0 20px;
-        font-size: 1rem;
-        height: 48px;
+        font-size: 1.1rem;
+        height: 52px;
     }
-
     .discord-btn {
-        width: 48px;
-        height: 48px;
+        width: 52px;
+        height: 52px;
     }
-
     .discord-btn svg {
-        width: 20px;
-        height: 20px;
+        width: 26px;
+        height: 26px;
     }
-
-    .bio-text {
-        font-size: 1rem;
+    .music-player, .lang-switcher {
+        position: static;
+        transform: translateX(0);
+        margin-left: auto;
+        margin-right: auto;
     }
-
     .music-player {
-        width: 90%;
-        padding: 8px 12px;
-        gap: 10px;
+        left: auto;
+        bottom: auto;
+        width: 100%;
+        max-width: 350px;
+        margin-top: 40px;
+        margin-bottom: 20px;
     }
-
-    .music-player button {
-        font-size: 1.2rem;
-        width: 25px;
-    }
-
-    .music-player button svg {
-        width: 20px;
-        height: 20px;
-    }
-
-    #track-title-container {
-        max-width: 120px;
-    }
-
     .lang-switcher {
-        bottom: 80px;
-        right: 15px;
-        gap: 8px;
-    }
-
-    .lang-btn {
-        padding: 6px 10px;
-        font-size: 0.9rem;
-    }
-    
-
-    @media (max-width: 480px) {
-        .buttons-container {
-            flex-direction: column;
-            gap: 10px;
-        }
-        
-        .contact-btn, .discord-btn {
-            width: 100%;
-            max-width: none;
-            border-radius: 15px;
-        }
-        
-        .discord-btn {
-            width: 60px;
-            height: 60px;
-        }
+        right: auto;
+        bottom: auto;
+        width: 100%;
+        justify-content: center;
     }
 }
