@@ -1,4 +1,23 @@
-/* === НОВЫЙ style.css === */
+
+#intro-screen {
+    position: fixed;
+    inset: 0;
+    background: #111;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity .3s ease;
+}
+
+.intro-text {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    user-select: none;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -57,13 +76,13 @@ body {
     display: block;
     margin: 0 auto;
     font-size: .65rem;
-    color: #555;          /* едва заметный серый */
+    color: #555;
     text-align: center;
     transition: color .8s ease, text-shadow .8s ease;
 }
 
 body.frenzy-mode .memorial-line {
-    color: #fff;          /* светится белым в режиме ярости */
+    color: #fff;
     text-shadow: 0 0 8px #fff;
 }
 
@@ -90,7 +109,6 @@ body.frenzy-mode .memorial-line {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0,0,0,.1);
-    /* убираем подъём, оставляем только подсветку */
     transition: box-shadow .3s ease, border-color .3s ease;
 }
 
@@ -110,7 +128,7 @@ body.frenzy-mode .memorial-line {
 }
 
 .btn:hover, .btn.mobile-active {
-    transform: none;                 /* никакого подъёма */
+    transform: none;
     box-shadow: 0 8px 25px rgba(0,0,0,.3);
     border-color: rgba(255,255,255,.3);
 }
@@ -322,6 +340,33 @@ body.frenzy-mode .prompt-text {
     0%   { transform: translateX(0) }
     100% { transform: translateX(-100%) }
 }
+
+
+#checkboxInput { display: none; }
+.toggleSwitch {
+    width: 50px;
+    height: 50px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,.1);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background .3s;
+    box-shadow: 2px 2px 10px rgba(0,0,0,.13);
+    overflow: hidden;
+}
+.toggleSwitch:hover { background: rgba(255,255,255,.2); }
+.speaker, .mute-speaker {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    transition: opacity .3s;
+}
+.mute-speaker { opacity: 0; }
+#checkboxInput:checked + .toggleSwitch .speaker { opacity: 0; }
+#checkboxInput:checked + .toggleSwitch .mute-speaker { opacity: 1; }
 
 @media (max-width: 600px) {
     body { padding: 12px; }
