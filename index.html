@@ -1,229 +1,205 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pepp3roni</title>
-    <link rel="stylesheet" href="./style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>pepp3roni</title>
+    <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
-    <div class="container">
-        <div class="profile">
-             <h1 class="name">pepp3roni</h1>
-            <p class="bio-text" id="bio-text"></p>
-        </div>
-        <div class="buttons-container">
-            <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.317 4.36981C18.7993 3.50425 17.1821 2.81336 15.4796 2.32924C15.3129 2.49591 15.1523 2.67442 14.9977 2.86477C13.5615 2.49591 12.0439 2.49591 10.6077 2.86477C10.4531 2.67442 10.2925 2.49591 10.1258 2.32924C8.42332 2.81336 6.8061 3.50425 5.28841 4.36981C1.57199 8.52832 0.716431 12.5694 1.08529 16.5201C2.88958 18.0378 4.90967 19.1834 7.04948 19.9841C7.45304 19.5152 7.8219 19.0159 8.14022 18.4984C7.61805 18.2263 7.12019 17.9238 6.64664 17.5849C6.76451 17.5344 6.88238 17.478 7.00025 17.4155C10.4439 19.2334 14.1541 19.2334 17.5978 17.4155C17.7156 17.478 17.8335 17.5344 17.9514 17.5849C17.4778 17.9238 16.9799 18.2263 16.4578 18.4984C16.7761 19.0159 17.145 19.5152 17.5485 19.9841C19.6883 19.1834 21.7084 18.0378 23.5127 16.5201C24.0348 11.9333 22.9753 7.9171 20.317 4.36981ZM8.67756 14.4839C7.81199 14.4839 7.09849 13.6891 7.09849 12.728C7.09849 11.7668 7.80016 10.972 8.67756 10.972C9.55495 10.972 10.2685 11.7668 10.2566 12.728C10.2566 13.6891 9.55495 14.4839 8.67756 14.4839ZM15.9224 14.4839C15.0569 14.4839 14.3434 13.6891 14.3434 12.728C14.3434 11.7668 15.045 10.972 15.9224 10.972C16.7998 10.972 17.5133 11.7668 17.5015 12.728C17.5015 13.6891 16.7998 14.4839 15.9224 14.4839Z"></path></svg>
-            </a>
-            <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
-                <span id="contact-btn-text"></span>
-            </a>
-        </div>
-    </div>
-    
-    <div class="lang-switcher">
-        <button class="lang-btn" id="lang-ru">RU</button>
-        <button class="lang-btn" id="lang-en">EN</button>
-    </div>
+    <div class="container">
+        <div class="profile">
+            <h1 class="name">pepp3roni</h1>
+            <p class="bio-text" id="bio-text"></p>
+            <span class="memorial-line" id="memorial-line"></span>
+        </div>
 
-    <div class="music-player">
-        <audio id="audio-player"></audio>
-        <button id="prev-btn">⏮</button>
-        <button id="play-pause-btn"></button>
-        <button id="next-btn">⏭</button>
-        <div id="track-title-container">
-            <span id="track-title"></span>
-        </div>
-    </div>
+        <div class="buttons-container">
+            <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
+                <!-- svg discord -->
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M20.317 4.3698a18.08 18.08 0 0 0-4.837-2.0406C15.312 2.496 15.152 2.674 15 2.865c-1.436-.369-2.954-.369-4.39 0-.154-.19-.315-.37-.482-.536a18.08 18.08 0 0 0-4.837 2.0406C1.572 8.528.716 12.569 1.085 16.52c1.804 1.518 3.824 2.663 5.964 3.464.403-.47.772-.97 1.09-1.487-.522-.272-1.02-.575-1.494-.914.118-.05.236-.107.354-.17 3.444 1.818 7.154 1.818 10.598 0 .118.063.236.12.354.17-.474.34-.972.642-1.494.914.318.517.687 1.017 1.09 1.487 2.14-.801 4.16-1.946 5.964-3.464-.46-4.587-1.52-8.603-4.178-12.1502zM8.678 14.484c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.59.795 1.59 1.757s-.713 1.756-1.59 1.756zm7.245 0c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.591.795 1.591 1.757s-.714 1.756-1.591 1.756z"/>
+                </svg>
+            </a>
+            <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
+                <span id="contact-btn-text"></span>
+            </a>
+        </div>
+    </div>
 
-    <script>
-        const info = {
-            ru: { 
-                bio: "Привет! Я - pepp3roni. Обычная шкила. Изучаю python. Живу в РФ, нравится Lil Peep, Серега Пират (-уши), Tame Impala, СТИНТ, MellSher. Смотрю твич - кишки forever. <span class='memorial-text'>Максим Spokoynich вечная память.</span>", 
-                contact: "Связаться со мной",
-                prompt: "Жми-Жми"
-            },
-            en: { 
-                bio: "Hey! I'm pepp3roni. Just a regular school kid learning Python. I'm from Russia and like Lil Peep, Serega Pirat (-ears), Tame Impala, STINT, and MellSher. I watch Twitch - kishki forever. <span class='memorial-text'>Maxim Spokoynich, Rest in Peace.</span>", 
-                contact: "Contact me",
-                prompt: "Tap-Tap"
-            },
-            discord_link: "https://discord.com/users/1099243706499997768",
-            playlist: [
-                { title: "LiL PEEP x PIXIES x BONES - WHERE IS MY MIND", src: "./music/wmmlilpeep.mp3" },
-                { title: "Серега Пират - КАРТИНЫ", src: "./music/kartini.mp3" },
-            ]
-        };
+    <div class="lang-switcher">
+        <button class="lang-btn" id="lang-ru">RU</button>
+        <button class="lang-btn" id="lang-en">EN</button>
+    </div>
 
-        const body = document.body;
-        const all_btns = [document.getElementById('contact-btn'), document.getElementById('discord-btn')];
-        const bio_text = document.getElementById('bio-text');
-        const tg_btn_text = document.getElementById('contact-btn-text');
-        const ds_btn = document.getElementById('discord-btn');
-        const ru_btn = document.getElementById('lang-ru');
-        const en_btn = document.getElementById('lang-en');
-        const player = document.getElementById('audio-player');
-        const track_title_container = document.getElementById('track-title-container');
-        const track_title = document.getElementById('track-title');
-        const prev_btn = document.getElementById('prev-btn');
-        const next_btn = document.getElementById('next-btn');
-        const play_btn = document.getElementById('play-pause-btn');
+    <div class="music-player">
+        <audio id="audio-player"></audio>
+        <button id="prev-btn">⏮</button>
+        <button id="play-pause-btn"></button>
+        <button id="next-btn">⏭</button>
+        <div id="track-title-container">
+            <span id="track-title"></span>
+        </div>
+    </div>
 
-        const play_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"></path></svg>`;
-        const pause_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"></path></svg>`;
-        
-        let is_hovering = false;
-        let warning_timer = null;
-        let frenzy_timer = null;
-        let frenzy_spawner = null;
-        let current_track = 0;
-        let is_playing = false;
-        let active_frenzy_btn = null;
-        const anims = ['frenzy-1', 'frenzy-2', 'frenzy-3', 'frenzy-4'];
-        const is_touch_device = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+    <script>
+        const info = {
+            ru: {
+                bio: "Привет! Я — pepp3roni. Обычная шкила. Изучаю python. Живу в РФ, нравится Lil Peep, Серега Пират (-уши), Tame Impala, СТИНТ, MellSher. Смотрю твич — kishki forever.",
+                memorial: "Максим Spokoynich — вечная память.",
+                contact: "Связаться со мной",
+                prompt: "Жми-Жми"
+            },
+            en: {
+                bio: "Hey! I'm pepp3roni. Just a regular school kid learning Python. I'm from Russia and like Lil Peep, Serega Pirat (-ears), Tame Impala, STINT, and MellSher. I watch Twitch — kishki forever.",
+                memorial: "Maxim Spokoynich, Rest in Peace.",
+                contact: "Contact me",
+                prompt: "Tap-Tap"
+            },
+            discord_link: "https://discord.com/users/1099243706499997768",
+            playlist: [
+                { title: "LiL PEEP x PIXIES x BONES - WHERE IS MY MIND", src: "./music/wmmlilpeep.mp3" },
+                { title: "Серега Пират - КАРТИНЫ", src: "./music/kartini.mp3" }
+            ]
+        };
 
-        function make_prompt(is_frenzy = false) {
-            const prompt = document.createElement('div');
-            const lang = localStorage.getItem('lang') || 'ru';
-            prompt.className = 'prompt-text';
-            prompt.textContent = info[lang].prompt;
-            prompt.style.animationName = is_frenzy ? anims[Math.floor(Math.random() * anims.length)] : 'gentle-burst';
-            prompt.style.animationDuration = is_frenzy ? '0.7s' : '2.5s';
-            const x = Math.random() * (window.innerWidth - 150);
-            const y = Math.random() * (window.innerHeight - 100);
-            prompt.style.left = `${x}px`;
-            prompt.style.top = `${y}px`;
-            body.appendChild(prompt);
-            setTimeout(() => prompt.remove(), is_frenzy ? 700 : 2500);
-        }
-        
-        function stop_effects() {
-            is_hovering = false;
-            clearTimeout(warning_timer); 
-            clearTimeout(frenzy_timer); 
-            clearInterval(frenzy_spawner);
-            body.classList.remove('frenzy-mode'); 
-            body.classList.remove('screen-shake');
-            all_btns.forEach(b => b.classList.remove('mobile-active'));
-            active_frenzy_btn = null;
-        }
+        const body = document.body;
+        const all_btns = [document.getElementById('contact-btn'), document.getElementById('discord-btn')];
+        const bio_text = document.getElementById('bio-text');
+        const memorial_line = document.getElementById('memorial-line');
+        const tg_btn_text = document.getElementById('contact-btn-text');
+        const ds_btn = document.getElementById('discord-btn');
+        const ru_btn = document.getElementById('lang-ru');
+        const en_btn = document.getElementById('lang-en');
+        const player = document.getElementById('audio-player');
+        const track_title_container = document.getElementById('track-title-container');
+        const track_title = document.getElementById('track-title');
+        const prev_btn = document.getElementById('prev-btn');
+        const next_btn = document.getElementById('next-btn');
+        const play_btn = document.getElementById('play-pause-btn');
 
-        function start_frenzy() {
-            if (is_hovering) return;
-            is_hovering = true;
-            
-            const warnings_start_timer = setTimeout(() => {
-                if (!is_hovering) return;
-                function spawn_warning() {
-                    if (!is_hovering) { clearTimeout(warning_timer); return; }
-                    make_prompt(false);
-                    warning_timer = setTimeout(spawn_warning, 1800 + Math.random() * 1000);
-                }
-                spawn_warning();
-            }, 3000);
+        const play_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
+        const pause_icon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
 
-            frenzy_timer = setTimeout(() => {
-                if (!is_hovering) return;
-                clearTimeout(warnings_start_timer); clearTimeout(warning_timer);
-                
-                const flash = document.createElement('div');
-                flash.className = 'blood-flash';
-                body.appendChild(flash);
-                setTimeout(() => flash.remove(), 800);
-                
-                body.classList.add('frenzy-mode'); body.classList.add('screen-shake');
-                for(let i = 0; i < 8; i++) { setTimeout(() => make_prompt(true), Math.random() * 500); }
-                
-                let prompts_count = 2;
-                frenzy_spawner = setInterval(() => {
-                    if (!is_hovering) { clearInterval(frenzy_spawner); return; }
-                    for (let i = 0; i < prompts_count; i++) { setTimeout(() => make_prompt(true), Math.random() * 400); }
-                    prompts_count++;
-                }, 500);
-            }, 15000);
-        }
-        
-        function set_lang(lang) {
-            const wipe = document.createElement('div');
-            wipe.className = 'lang-wipe';
-            body.appendChild(wipe);
+        let is_hovering = false, warning_timer = null, frenzy_timer = null, frenzy_spawner = null;
+        let current_track = 0, is_playing = false, active_frenzy_btn = null;
+        const anims = ['frenzy-1','frenzy-2','frenzy-3','frenzy-4'];
+        const is_touch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
-            setTimeout(() => {
-                bio_text.innerHTML = info[lang].bio;
-                tg_btn_text.textContent = info[lang].contact;
-                localStorage.setItem('lang', lang);
-                ru_btn.classList.toggle('active', lang === 'ru');
-                en_btn.classList.toggle('active', lang === 'en');
-            }, 400);
+        function make_prompt(frenzy=false){
+            const pr=document.createElement('div');
+            const lang=localStorage.getItem('lang')||'ru';
+            pr.className='prompt-text';
+            pr.textContent=info[lang].prompt;
+            pr.style.animationName=frenzy?anims[Math.floor(Math.random()*4)]:'gentle-burst';
+            pr.style.animationDuration=frenzy?'.7s':'2.5s';
+            pr.style.left=Math.random()*(innerWidth-150)+'px';
+            pr.style.top=Math.random()*(innerHeight-100)+'px';
+            body.appendChild(pr);
+            setTimeout(()=>pr.remove(), frenzy?700:2500);
+        }
 
-            setTimeout(() => wipe.remove(), 800);
-        }
+        function stop_effects(){
+            is_hovering=false;
+            clearTimeout(warning_timer); clearTimeout(frenzy_timer); clearInterval(frenzy_spawner);
+            body.classList.remove('frenzy-mode','screen-shake');
+            all_btns.forEach(b=>b.classList.remove('mobile-active'));
+            active_frenzy_btn=null;
+        }
 
-        function load_track(id) {
-            player.src = info.playlist[id].src;
-            track_title.textContent = info.playlist[id].title;
-            track_title.classList.remove('scrolling');
-            
-            if (track_title.scrollWidth > track_title_container.clientWidth) {
-                track_title.classList.add('scrolling');
-            }
+        function start_frenzy(){
+            if(is_hovering)return;
+            is_hovering=true;
+            const w=setTimeout(()=>{
+                if(!is_hovering)return;
+                function spawn(){if(!is_hovering)return;make_prompt();warning_timer=setTimeout(spawn,1800+Math.random()*1000);}
+                spawn();
+            },3000);
+            frenzy_timer=setTimeout(()=>{
+                if(!is_hovering)return;
+                clearTimeout(w);clearTimeout(warning_timer);
+                const f=document.createElement('div');f.className='blood-flash';body.appendChild(f);
+                setTimeout(()=>f.remove(),800);
+                body.classList.add('frenzy-mode','screen-shake');
+                for(let i=0;i<8;i++)setTimeout(()=>make_prompt(true),Math.random()*500);
+                let cnt=2;
+                frenzy_spawner=setInterval(()=>{
+                    if(!is_hovering){clearInterval(frenzy_spawner);return;}
+                    for(let i=0;i<cnt;i++)setTimeout(()=>make_prompt(true),Math.random()*400);
+                    cnt++;
+                },500);
+            },15000);
+        }
 
-            if (is_playing) player.play();
-        }
+        function set_lang(lang){
+            const w=document.createElement('div');w.className='lang-wipe';body.appendChild(w);
+            setTimeout(()=>{
+                bio_text.innerHTML=info[lang].bio;
+                memorial_line.innerHTML=info[lang].memorial;
+                tg_btn_text.textContent=info[lang].contact;
+                localStorage.setItem('lang',lang);
+                ru_btn.classList.toggle('active',lang==='ru');
+                en_btn.classList.toggle('active',lang==='en');
+            },400);
+            setTimeout(()=>w.remove(),800);
+        }
 
-        function play_pause_toggle() {
-            is_playing = !is_playing;
-            if (is_playing) {
-                player.play();
-                play_btn.innerHTML = pause_icon;
-            } else {
-                player.pause();
-                play_btn.innerHTML = play_icon;
-            }
-        }
+        function load_track(id){
+            player.src=info.playlist[id].src;
+            track_title.style.opacity=0;
+            setTimeout(()=>{
+                track_title.textContent=info.playlist[id].title;
+                track_title.classList.remove('scrolling');
+                track_title.style.transform='translateX(0)';
+                track_title.style.opacity=1;
+                setTimeout(()=>{
+                    if(track_title.scrollWidth>track_title_container.clientWidth){
+                        track_title.classList.add('scrolling');
+                    }
+                },50);
+            },180);
+            if(is_playing)player.play();
+        }
 
-        if (is_touch_device) {
-            all_btns.forEach(btn => {
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (active_frenzy_btn === btn) {
-                        window.open(btn.href, '_blank');
-                        stop_effects();
-                        return;
-                    }
-                    if (active_frenzy_btn) stop_effects();
-                    
-                    active_frenzy_btn = btn;
-                    btn.classList.add('mobile-active');
-                    start_frenzy();
-                });
-            });
-            document.addEventListener('click', (e) => {
-                const is_button_click = all_btns.some(btn => btn.contains(e.target));
-                if (!is_button_click && active_frenzy_btn) stop_effects();
-            });
-        } else {
-             all_btns.forEach(btn => {
-                btn.addEventListener('mouseenter', start_frenzy);
-                btn.addEventListener('mouseleave', stop_effects);
-            });
-        }
-        
-        document.addEventListener('DOMContentLoaded', () => {
-            const saved_lang = localStorage.getItem('lang') || 'ru';
-            set_lang(saved_lang);
-            ds_btn.href = info.discord_link;
-            play_btn.innerHTML = play_icon;
-            load_track(current_track);
-        });
-        
-        ru_btn.addEventListener('click', () => set_lang('ru'));
-        en_btn.addEventListener('click', () => set_lang('en'));
-        play_btn.addEventListener('click', play_pause_toggle);
-        next_btn.addEventListener('click', () => { current_track = (current_track + 1) % info.playlist.length; load_track(current_track); });
-        prev_btn.addEventListener('click', () => { current_track = (current_track - 1 + info.playlist.length) % info.playlist.length; load_track(current_track); });
-        player.addEventListener('ended', () => { current_track = (current_track + 1) % info.playlist.length; load_track(current_track); });
-    </script>
+        function play_pause_toggle(){
+            is_playing=!is_playing;
+            if(is_playing){player.play();play_btn.innerHTML=pause_icon;}
+            else{player.pause();play_btn.innerHTML=play_icon;}
+        }
+
+        if(is_touch){
+            all_btns.forEach(btn=>{
+                btn.addEventListener('click',e=>{
+                    e.preventDefault();
+                    if(active_frenzy_btn===btn){window.open(btn.href,'_blank');stop_effects();return;}
+                    if(active_frenzy_btn)stop_effects();
+                    active_frenzy_btn=btn;btn.classList.add('mobile-active');start_frenzy();
+                });
+            });
+            document.addEventListener('click',e=>{
+                if(!all_btns.some(b=>b.contains(e.target))&&active_frenzy_btn)stop_effects();
+            });
+        }else{
+            all_btns.forEach(btn=>{
+                btn.addEventListener('mouseenter',start_frenzy);
+                btn.addEventListener('mouseleave',stop_effects);
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded',()=>{
+            const saved=localStorage.getItem('lang')||'ru';
+            set_lang(saved);
+            ds_btn.href=info.discord_link;
+            play_btn.innerHTML=play_icon;
+            load_track(current_track);
+        });
+
+        ru_btn.addEventListener('click',()=>set_lang('ru'));
+        en_btn.addEventListener('click',()=>set_lang('en'));
+        play_btn.addEventListener('click',play_pause_toggle);
+        next_btn.addEventListener('click',()=>{current_track=(current_track+1)%info.playlist.length;load_track(current_track);});
+        prev_btn.addEventListener('click',()=>{current_track=(current_track-1+info.playlist.length)%info.playlist.length;load_track(current_track);});
+        player.addEventListener('ended',()=>{current_track=(current_track+1)%info.playlist.length;load_track(current_track);});
+    </script>
 </body>
 </html>
