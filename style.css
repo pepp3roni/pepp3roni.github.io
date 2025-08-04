@@ -79,6 +79,8 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: inherit;
+    line-height: normal;
 }
 
 .contact-btn {
@@ -94,14 +96,8 @@ body {
     height: 56px;
     padding: 0;
     border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.discord-btn svg {
-    width: 24px;
-    height: 24px;
+    min-width: 56px;
+    min-height: 56px;
 }
 
 .btn:hover {
@@ -129,6 +125,14 @@ body {
 .btn:hover::before,
 .btn.mobile-active::before {
     opacity: 0.4;
+}
+
+.btn svg {
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0;
+    padding: 0;
 }
 
 @keyframes gradientName {
@@ -436,6 +440,17 @@ body.frenzy-mode .memorial-text {
     cursor: pointer;
     width: 30px;
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+.music-player button svg {
+    width: 24px;
+    height: 24px;
+    display: block;
 }
 
 #play-pause-btn svg {
@@ -481,6 +496,8 @@ body.frenzy-mode .memorial-text {
     .discord-btn {
         width: 48px;
         height: 48px;
+        min-width: 48px;
+        min-height: 48px;
     }
 
     .bio-text {
