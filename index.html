@@ -106,6 +106,7 @@
             body.classList.remove('frenzy-mode','screen-shake');
             all_btns.forEach(b=>b.classList.remove('mobile-active'));
             active_frenzy_btn=null;
+            document.querySelectorAll('.btn-glow').forEach(el=>el.remove());
         }
 
         function start_frenzy(){
@@ -133,7 +134,7 @@
         }
 
         function set_lang(lang){
-            if(lang_lock || (localStorage.getItem('lang')||'ru')===lang) return;
+            if(lang_lock) return;
             lang_lock=true;
             const w=document.createElement('div');w.className='lang-wipe';body.appendChild(w);
             setTimeout(()=>{
@@ -186,6 +187,16 @@
             all_btns.forEach(btn=>{
                 btn.addEventListener('mouseenter',start_frenzy);
                 btn.addEventListener('mouseleave',stop_effects);
+                btn.addEventListener('mouseenter',()=>{
+                    if(!btn.querySelector('.btn-glow')){
+                        const glow=document.createElement('div');
+                        glow.className='btn-glow';
+                        btn.appendChild(glow);
+                    }
+                });
+                btn.addEventListener('mouseleave',()=>{
+                    document.querySelectorAll('.btn-glow').forEach(el=>el.remove());
+                });
             });
         }
 
