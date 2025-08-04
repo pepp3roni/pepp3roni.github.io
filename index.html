@@ -18,15 +18,18 @@
       </div>
 
       <div class="buttons-container">
+        
         <a href="#" class="btn discord-btn" id="discord-btn" target="_blank">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
             <path d="M20.317 4.3698a18.08 18.08 0 0 0-4.837-2.0406C15.312 2.496 15.152 2.674 15 2.865c-1.436-.369-2.954-.369-4.39 0-.154-.19-.315-.37-.482-.536a18.08 18.08 0 0 0-4.837 2.0406C1.572 8.528.716 12.569 1.085 16.52c1.804 1.518 3.824 2.663 5.964 3.464.403-.47.772-.97 1.09-1.487-.522-.272-1.02-.575-1.494-.914.118-.05.236-.107.354-.17 3.444 1.818 7.154 1.818 10.598 0 .118.063.236.12.354.17-.474.34-.972.642-1.494.914.318.517.687 1.017 1.09 1.487 2.14-.801 4.16-1.946 5.964-3.464-.46-4.587-1.52-8.603-4.178-12.1502zM8.678 14.484c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.59.795 1.59 1.757s-.713 1.756-1.59 1.756zm7.245 0c-.865 0-1.579-.795-1.579-1.756s.713-1.757 1.579-1.757c.877 0 1.591.795 1.591 1.757s-.714 1.756-1.591 1.756z"/>
           </svg>
         </a>
+        
         <a href="https://t.me/pepp3roni" class="btn contact-btn" target="_blank" id="contact-btn">
           <span id="contact-btn-text"></span>
         </a>
       </div>
+      
       
       <div class="lang-switcher">
         <button class="lang-btn" data-lang="ru">RU</button>
@@ -34,6 +37,7 @@
       </div>
     </div>
 
+    
     <div class="music-player">
       <audio id="audio-player" loop></audio>
       <button id="prev-btn">⏮</button>
@@ -42,22 +46,7 @@
       <div id="track-title-container">
         <span id="track-title"></span>
       </div>
-
-      <input type="checkbox" id="checkboxInput">
-      <label for="checkboxInput" class="toggleSwitch">
-        <div class="speaker">
-          <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
-            <path d="M39.389,13.769 L22.235,28.606 L6,28.606 L6,47.699 L21.989,47.699 L39.389,62.75 L39.389,13.769z" fill="#fff"/>
-            <path d="M48,27.6a19.5,19.5 0 0 1 0,21.4M55.1,20.5a30,30 0 0 1 0,35.6M61.6,14a38.8,38.8 0 0 1 0,48.6" fill="none"/>
-          </svg>
-        </div>
-        <div class="mute-speaker">
-          <svg viewBox="0 0 75 75" stroke="#fff" stroke-width="5">
-            <path d="m39,14-17,15H6V48H22l17,15z" fill="#fff"/>
-            <path d="m49,26 20,24m0-24-20,24" fill="#fff"/>
-          </svg>
-        </div>
-      </label>
+      
     </div>
   </div>
 
@@ -96,7 +85,7 @@
       const playBtn = document.getElementById('play-pause-btn');
       const nextBtn = document.getElementById('next-btn');
       const prevBtn = document.getElementById('prev-btn');
-      const muteInput = document.getElementById('checkboxInput');
+      
 
       const playIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>`;
       const pauseIcon = `<svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`;
@@ -107,12 +96,9 @@
       const isTouch = ('ontouchstart' in window) || navigator.maxTouchPoints > 0;
 
       function setLang(lang){
- 
         bioText.innerHTML = info[lang].bio;
         memorialText.innerHTML = info[lang].memorial;
         contactBtnText.textContent = info[lang].contact;
-        
-      
         localStorage.setItem('lang', lang);
         langBtns.forEach(btn => btn.classList.toggle('active', btn.dataset.lang === lang));
       }
@@ -180,10 +166,7 @@
           for(let i = 0; i < 8; i++) setTimeout(() => makePrompt(true), Math.random() * 500);
           let cnt = 2;
           frenzySpawner = setInterval(() => {
-            if(!isHovering) {
-              clearInterval(frenzySpawner);
-              return;
-            }
+            if(!isHovering) { clearInterval(frenzySpawner); return; }
             for(let i = 0; i < cnt; i++) setTimeout(() => makePrompt(true), Math.random() * 400);
             cnt++;
           }, 500);
@@ -193,7 +176,14 @@
       function loadTrack(id, autoplay = false){
         player.src = info.playlist[id].src;
         trackTitle.textContent = info.playlist[id].title;
-        trackTitle.classList.toggle('scrolling', trackTitle.scrollWidth > document.getElementById('track-title-container').clientWidth);
+        
+        const titleContainer = document.getElementById('track-title-container');
+        if (trackTitle.scrollWidth > titleContainer.clientWidth) {
+          trackTitle.classList.add('scrolling');
+        } else {
+          trackTitle.classList.remove('scrolling');
+        }
+
         if (autoplay) {
           player.play();
           isPlaying = true;
@@ -216,7 +206,7 @@
         }
       }
 
-
+      
       
       body.classList.add('loaded');
       loadTrack(currentTrack, false);
@@ -251,23 +241,19 @@
       nextBtn.addEventListener('click', () => { currentTrack = (currentTrack + 1) % info.playlist.length; loadTrack(currentTrack, isPlaying); });
       prevBtn.addEventListener('click', () => { currentTrack = (currentTrack - 1 + info.playlist.length) % info.playlist.length; loadTrack(currentTrack, isPlaying); });
       player.addEventListener('ended', () => { nextBtn.click(); });
-      muteInput.addEventListener('change', () => player.muted = muteInput.checked);
+      
 
       playBtn.innerHTML = playIcon;
-      muteInput.checked = false;
       player.muted = false;
       dsBtn.href = info.discord_link;
 
-      
       const savedLang = localStorage.getItem('lang');
       if (savedLang) {
-          setLang(savedLang); 
+          setLang(savedLang);
       } else {
-          
           const userLang = (navigator.language || navigator.userLanguage).toLowerCase();
           const isCIS = ['ru', 'be', 'uk', 'kk', 'ky', 'uz'].some(lang => userLang.startsWith(lang));
-          const defaultLang = isCIS ? 'ru' : 'en';
-          setLang(defaultLang);
+          setLang(isCIS ? 'ru' : 'en');
       }
     });
   </script>
