@@ -85,19 +85,19 @@ body {
 
 .contact-btn {
     flex-grow: 1;
-    height: 56px;
+    height: 64px;
     padding: 0 30px;
     font-size: 1.1rem;
 }
 
 .discord-btn {
     flex-shrink: 0;
-    width: 56px;
-    height: 56px;
+    width: 64px;
+    height: 64px;
     padding: 0;
     border-radius: 50%;
-    min-width: 56px;
-    min-height: 56px;
+    min-width: 64px;
+    min-height: 64px;
 }
 
 .btn:hover {
@@ -128,8 +128,8 @@ body {
 }
 
 .btn svg {
-    width: 24px;
-    height: 24px;
+    width: 32px;
+    height: 32px;
     display: block;
     margin: 0;
     padding: 0;
@@ -490,14 +490,19 @@ body.frenzy-mode .memorial-text {
     .contact-btn {
         padding: 0 20px;
         font-size: 1rem;
-        height: 48px;
+        height: 56px;
     }
 
     .discord-btn {
-        width: 48px;
-        height: 48px;
-        min-width: 48px;
-        min-height: 48px;
+        width: 56px;
+        height: 56px;
+        min-width: 56px;
+        min-height: 56px;
+    }
+
+    .btn svg {
+        width: 24px;
+        height: 24px;
     }
 
     .bio-text {
